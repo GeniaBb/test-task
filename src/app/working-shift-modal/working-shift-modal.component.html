@@ -1,10 +1,10 @@
-<div class="dialog-mask">
+<div class="dialog-mask" [ngClass]="{ visible: isModalVisible }">
   <div class="dialog">
     <header class="dialog__header">
       <caption class="dialog__title">
         Добавление смены
       </caption>
-      <button class="btn btn--icon">
+      <button class="btn btn--icon" (click)="hide()">
         <img src="/assets/img/clear.svg" alt="Закрыть модальное окно" />
       </button>
     </header>
@@ -74,7 +74,9 @@
         </div>
       </div>
       <div class="dialog__btns">
-        <button class="btn btn--secondary mr-sm">Закрыть</button>
+        <button class="btn btn--secondary mr-sm" (click)="hide()">
+          Закрыть
+        </button>
         <button class="btn btn--primary">Сохранить</button>
       </div>
     </footer>
