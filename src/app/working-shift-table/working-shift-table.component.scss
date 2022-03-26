@@ -17,6 +17,10 @@
     margin-bottom: 20px;
   }
 
+  &__btns {
+    display: flex;
+  }
+
   &__data-table {
     border-collapse: collapse;
     min-width: 100%;

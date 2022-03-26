@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { WorkingShiftModalComponent } from '../working-shift-modal/working-shift-modal.component';
+import { Observable } from 'rxjs';
+import { DataService } from '../data.service';
+import { Shift } from '../types/shift.interface';
 
 @Component({
   selector: 'app-working-shift-table',
@@ -7,7 +9,21 @@ import { WorkingShiftModalComponent } from '../working-shift-modal/working-shift
   styleUrls: ['./working-shift-table.component.scss'],
 })
 export class WorkingShiftTableComponent implements OnInit {
-  constructor() {}
+  constructor(private readonly dataService: DataService) {}
+
+  columns: string[] = [
+    'ФИО',
+    'Начало',
+    'Окончание',
+    'Тип крана',
+    'Погружено тонн',
+    'Отгружено тонн',
+    '',
+  ];
+
+  getData(): Observable<Shift[]> {
+    return this.dataService.getShifts();
+  }
 
   ngOnInit(): void {}
 }
