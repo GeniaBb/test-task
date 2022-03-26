@@ -1,1 +1,79 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Montserrat", "Roboto", sans-serif;
+}
+
+.btn {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+
+  &--primary {
+    background: #3b82f6;
+    border: 1px solid #3b82f6;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+      box-shadow 0.2s;
+
+    &:active {
+      background: #1d4ed8;
+      color: #ffffff;
+      border-color: #1d4ed8;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+      border-color: #86b7fe;
+    }
+  }
+
+  &--secondary {
+    background: #64748b;
+    border: 1px solid #64748b;
+
+    &:active {
+      background: #334155;
+      border-color: #334155;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #b0b9c6, 0 1px 2px 0 black;
+    }
+  }
+}
+
+$spaces: (
+  "xs": 4px,
+  "sm": 8px,
+  "md": 16px,
+  "lg": 24px,
+  "xl": 32px,
+  "auto": auto,
+);
+
+$prefixes: (
+  "mt": "margin-top",
+  "mb": "margin-bottom",
+  "ml": "margin-left",
+  "mr": "margin-right",
+  "ma": "margin",
+);
+
+@each $prefix, $value in $prefixes {
+  @each $name, $size in $spaces {
+    .#{$prefix}-#{$name} {
+      #{$value}: $size;
+    }
+  }
+}
