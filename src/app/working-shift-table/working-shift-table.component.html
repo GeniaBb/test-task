@@ -17,8 +17,8 @@
     <tbody>
       <tr class="table__table-row" *ngFor="let shift of getData() | async">
         <td class="table__table-cell">{{ shift.responsible }}</td>
-        <td class="table__table-cell">{{ shift.start }}</td>
-        <td class="table__table-cell">{{ shift.end }}</td>
+        <td class="table__table-cell">{{ shift.start | localDate }}</td>
+        <td class="table__table-cell">{{ shift.end | localDate }}</td>
         <td class="table__table-cell">{{ shift.craneType }}</td>
         <td class="table__table-cell">{{ shift.loaded }}</td>
         <td class="table__table-cell">{{ shift.shipped }}</td>
