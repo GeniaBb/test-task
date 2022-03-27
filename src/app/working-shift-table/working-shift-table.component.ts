@@ -25,5 +25,9 @@ export class WorkingShiftTableComponent implements OnInit {
     return this.dataService.getShifts();
   }
 
+  removeShift(el: any) {
+    this.dataService.removeShift(el);
+  }
+
   ngOnInit(): void {}
 }
