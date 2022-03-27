@@ -1,5 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CraneType } from '../types/crane-type.enum';
 
 @Component({
@@ -15,12 +21,11 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     window.addEventListener('keydown', this.onKeyDown);
     this.form = new FormGroup({
       employee: new FormControl('', [Validators.required]), //ФИО ответственного
-      loaded: new FormControl('', [Validators.required]), // Погруженно тонн
-      shipped: new FormControl(''), // Отгружено тонн
       crane: new FormControl('', [Validators.required]),
       truck: new FormControl(''),
       dateStart: new FormControl('', [Validators.required]),
       dateEnd: new FormControl('', [Validators.required]),
+      cranes: new FormArray([]),
     });
   }
 
@@ -29,10 +34,24 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
   }
 
   isModalVisible: boolean = false;
-  isCraneVisible: boolean = false;
 
   get craneType(): typeof CraneType {
     return CraneType;
+  }
+
+  get cranes(): FormArray {
+    return this.form.get('cranes') as FormArray;
+  }
+
+  get cranesControls(): AbstractControl[] {
+    return this.cranes.controls || [];
+  }
+
+  getTrucksForCrane(idx: number) {
+    // По индексу крана получаем его массив грузовиков
+    const crane = this.cranes.get(String(idx)) as FormGroup;
+    console.log('crane', crane);
+    return (crane.get('trucks') as FormArray).controls || [];
   }
 
   show(): void {
@@ -43,8 +62,26 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     this.isModalVisible = false;
   }
 
-  addDoubleCrane(): void {
-    this.isCraneVisible = true;
+  onChangeCrane() {
+    const selectedCrane = this.form.value.crane;
+    (this.form.get('cranes') as FormArray).clear();
+    this.addCraneFormGroup();
+    if (selectedCrane === this.craneType.double) {
+      this.addCraneFormGroup();
+    }
+  }
+
+  addCraneFormGroup() {
+    const craneFormGroup = new FormGroup({
+      trucks: new FormArray([
+        new FormGroup({
+          truck: new FormControl('', [Validators.required]),
+          loaded: new FormControl(''),
+          shipped: new FormControl(''), // Отгружено тонн
+        }),
+      ]),
+    });
+    (this.form.get('cranes') as FormArray).push(craneFormGroup);
   }
 
   onKeyDown = (event: KeyboardEvent): void => {

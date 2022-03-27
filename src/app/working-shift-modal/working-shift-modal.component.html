@@ -12,7 +12,12 @@
       <form action="" class="form" [formGroup]="form">
         <div class="form__fields">
           <label class="form__header mt-md mb-sm">Тип крана</label>
-          <select name="" id="" class="form__select" formControlName="crane">
+          <select
+            name="crane"
+            class="form__select"
+            (change)="onChangeCrane()"
+            formControlName="crane"
+          >
             <option [value]="craneType.single">Одинарный</option>
             <option [value]="craneType.double">Двойной</option>
           </select>
@@ -74,113 +79,77 @@
             </div>
           </div>
         </fieldset>
-        <fieldset class="form__info">
-          <legend>Первый кран</legend>
-          <div class="mr-md">
-            <label class="form__header mt-md mb-sm">Грузовик</label>
-            <select name="" id="" class="form__select" formControlName="truck">
-              <option value="truck1">Грузовик №1</option>
-              <option value="truck2">Грузовик №2</option>
-            </select>
-          </div>
-          <div class="form__materials">
-            <div class="form__material mr-md">
-              <label for="" class="form__header mt-md mb-sm"
-                >Погружено, т</label
-              >
-              <input
-                min="0"
-                formControlName="loaded"
-                class="form__field-input field-number"
-                type="number"
-              />
+        <div formArrayName="cranes">
+          <fieldset
+            class="form__info"
+            *ngFor="let crane of cranesControls; let craneIdx = index"
+            [formGroupName]="craneIdx"
+          >
+            <legend>Кран {{ craneIdx }}</legend>
+            <div formArrayName="trucks">
               <div
-                class="form__validation"
-                *ngIf="
-                  form.get('loaded')?.invalid && form.get('loaded')?.touched
+                class="form__materials"
+                *ngFor="
+                  let truck of getTrucksForCrane(craneIdx);
+                  let trukIdx = index
                 "
+                [formGroupName]="trukIdx"
               >
-                <small *ngIf="form.get('loaded')?.errors?.required"
-                  >Поле не может быть пустым</small
-                >
+                <div class="mr-md">
+                  <label class="form__header mt-md mb-sm">Грузовик</label>
+                  <select class="form__select" formControlName="truck">
+                    <option value="truck1">Грузовик №1</option>
+                    <option value="truck2">Грузовик №2</option>
+                  </select>
+                </div>
+                <div class="form__material mr-md">
+                  <label for="" class="form__header mt-md mb-sm"
+                    >Погружено, т</label
+                  >
+                  <input
+                    min="0"
+                    formControlName="loaded"
+                    class="form__field-input field-number"
+                    type="number"
+                  />
+                  <div
+                    class="form__validation"
+                    *ngIf="
+                      form.get('loaded')?.invalid && form.get('loaded')?.touched
+                    "
+                  >
+                    <small *ngIf="form.get('loaded')?.errors?.required"
+                      >Поле не может быть пустым</small
+                    >
+                  </div>
+                </div>
+                <div class="form__material mr-md">
+                  <label for="" class="form__header mt-md mb-sm"
+                    >Отгружено, т</label
+                  >
+                  <input
+                    min="0"
+                    formControlName="shipped"
+                    class="form__field-input field-number"
+                    type="number"
+                  />
+                  <div
+                    class="form__validation"
+                    *ngIf="
+                      form.get('shipped')?.invalid &&
+                      form.get('shipped')?.touched
+                    "
+                  >
+                    <small>Поле "Отгружено, т" не может быть пустым</small>
+                  </div>
+                </div>
+                <button type="button" class="btn mt-xl">
+                  <img src="/assets/img/delete.svg" alt="Удалить" />
+                </button>
               </div>
             </div>
-            <div class="form__material mr-md">
-              <label for="" class="form__header mt-md mb-sm"
-                >Отгружено, т</label
-              >
-              <input
-                min="0"
-                formControlName="shipped"
-                class="form__field-input field-number"
-                type="number"
-              />
-              <div
-                class="form__validation"
-                *ngIf="
-                  form.get('shipped')?.invalid && form.get('shipped')?.touched
-                "
-              >
-                <small>Поле "Отгружено, т" не может быть пустым</small>
-              </div>
-            </div>
-            <button type="button" class="btn mt-xl">
-              <img src="/assets/img/delete.svg" alt="Удалить" />
-            </button>
-          </div>
-        </fieldset>
-        <fieldset class="form__info">
-          <legend>Второй кран</legend>
-          <div class="mr-md">
-            <label class="form__header mt-md mb-sm">Грузовик</label>
-            <select name="" id="" class="form__select" formControlName="truck">
-              <option value="truck1">Грузовик №1</option>
-              <option value="truck2">Грузовик №2</option>
-            </select>
-          </div>
-          <div class="form__materials">
-            <div class="form__material mr-md">
-              <label for="" class="form__header mt-md mb-sm"
-                >Погружено, т</label
-              >
-              <input
-                min="0"
-                formControlName="loaded"
-                class="form__field-input field-number"
-                type="number"
-              />
-              <div
-                class="form__validation"
-                *ngIf="
-                  form.get('loaded')?.invalid && form.get('loaded')?.touched
-                "
-              >
-                <small *ngIf="form.get('loaded')?.errors?.required"
-                  >Поле не может быть пустым</small
-                >
-              </div>
-            </div>
-            <div class="form__material mr-md">
-              <label for="" class="form__header mt-md mb-sm"
-                >Отгружено, т</label
-              >
-              <input
-                min="0"
-                formControlName="shipped"
-                class="form__field-input field-number"
-                type="number"
-              />
-              <div
-                class="form__validation"
-                *ngIf="
-                  form.get('shipped')?.invalid && form.get('shipped')?.touched
-                "
-              >
-                <small>Поле "Отгружено, т" не может быть пустым</small>
-              </div>
-            </div>
-          </div>
-        </fieldset>
+          </fieldset>
+        </div>
       </form>
     </div>
     <footer class="dialog__footer">
