@@ -108,10 +108,22 @@
     color: #212529;
     background-color: #fff;
 
+    &.ng-invalid.ng-touched {
+      border: 1px solid rgb(189, 11, 11);
+    }
+
+    &.ng-valid.ng-touched {
+      border: 1px solid rgb(3, 175, 17);
+    }
+
     &:focus {
       box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
       border-color: #86b7fe;
     }
+  }
+
+  &__validation {
+    color: rgb(189, 11, 11);
   }
 
   &__dates {
@@ -143,6 +155,9 @@
     &:focus {
       box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
       border-color: #86b7fe;
+    }
+    &.ng-invalid.ng-touched {
+      border: 1px solid rgb(189, 11, 11);
     }
   }
 

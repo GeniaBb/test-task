@@ -6,6 +6,7 @@ import { WorkingShiftTableComponent } from './working-shift-table/working-shift-
 import { WorkingShiftModalComponent } from './working-shift-modal/working-shift-modal.component';
 import { LocalDatePipe } from './local-date.pipe';
 import { CraneTypePipe } from './crane-type.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,12 +14,10 @@ import { CraneTypePipe } from './crane-type.pipe';
     WorkingShiftTableComponent,
     WorkingShiftModalComponent,
     LocalDatePipe,
-    CraneTypePipe
+    CraneTypePipe,
   ],
-  imports: [
-    BrowserModule
-  ],
+  imports: [BrowserModule, ReactiveFormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

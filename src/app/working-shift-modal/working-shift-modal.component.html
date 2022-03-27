@@ -4,42 +4,83 @@
       <caption class="dialog__title">
         Добавление смены
       </caption>
-      <button class="btn btn--icon" (click)="hide()">
+      <button type="button" class="btn btn--icon" (click)="hide()">
         <img src="/assets/img/clear.svg" alt="Закрыть модальное окно" />
       </button>
     </header>
     <div class="dialog__content">
-      <form action="" class="form">
+      <form action="" class="form" [formGroup]="form">
         <div class="form__fields">
           <label class="form__header mt-md mb-sm">Тип крана</label>
-          <select name="" id="" class="form__select">
-            <option value="" selected>Выберите тип крана</option>
-            <option value="">Двойной</option>
-            <option value="">Одинарный</option>
+          <select name="" id="" class="form__select" formControlName="crane">
+            <option [value]="craneType.single">Одинарный</option>
+            <option [value]="craneType.double">Двойной</option>
           </select>
+
           <label class="form__header mt-md mb-sm">ФИО ответственного</label
-          ><input class="form__field-input" type="text" />
+          ><input
+            formControlName="employee"
+            class="form__field-input"
+            type="text"
+          />
+          <div
+            class="form__validation"
+            *ngIf="
+              form.get('employee')?.invalid && form.get('employee')?.touched
+            "
+          >
+            <small *ngIf="form.get('employee')?.errors?.required"
+              >Поле "ФИО ответственного" не может быть пустым</small
+            >
+          </div>
         </div>
         <fieldset class="form__dates">
           <div>
             <label class="form__header mt-md mb-sm" for="">Дата начала</label>
-            <input class="form__field-input" type="date" />
+            <input
+              formControlName="dateStart"
+              class="form__field-input"
+              type="date"
+            />
+            <div
+              class="form__validation"
+              *ngIf="
+                form.get('dateStart')?.invalid && form.get('dateStart')?.touched
+              "
+            >
+              <small *ngIf="form.get('dateStart')?.errors?.required"
+                >Дата обязательна к заполнению</small
+              >
+            </div>
           </div>
           <div>
             <label class="form__header mt-md mb-sm" for=""
               >Дата окончания</label
             >
-            <input class="form__field-input" type="date" />
+            <input
+              formControlName="dateEnd"
+              class="form__field-input"
+              type="date"
+            />
+            <div
+              class="form__validation"
+              *ngIf="
+                form.get('dateEnd')?.invalid && form.get('dateEnd')?.touched
+              "
+            >
+              <small *ngIf="form.get('dateEnd')?.errors?.required"
+                >Дата обязательна к заполнению</small
+              >
+            </div>
           </div>
         </fieldset>
         <fieldset class="form__info">
           <legend>Первый кран</legend>
           <div class="mr-md">
             <label class="form__header mt-md mb-sm">Грузовик</label>
-            <select name="" id="" class="form__select">
-              <option value="" selected>Выберите машину</option>
-              <option value="">Грузовик №1</option>
-              <option value="">Грузовик №2</option>
+            <select name="" id="" class="form__select" formControlName="truck">
+              <option value="truck1">Грузовик №1</option>
+              <option value="truck2">Грузовик №2</option>
             </select>
           </div>
           <div class="form__materials">
@@ -47,17 +88,97 @@
               <label for="" class="form__header mt-md mb-sm"
                 >Погружено, т</label
               >
-              <input class="form__field-input field-number" type="number" />
+              <input
+                min="0"
+                formControlName="loaded"
+                class="form__field-input field-number"
+                type="number"
+              />
+              <div
+                class="form__validation"
+                *ngIf="
+                  form.get('loaded')?.invalid && form.get('loaded')?.touched
+                "
+              >
+                <small *ngIf="form.get('loaded')?.errors?.required"
+                  >Поле не может быть пустым</small
+                >
+              </div>
             </div>
             <div class="form__material mr-md">
               <label for="" class="form__header mt-md mb-sm"
                 >Отгружено, т</label
               >
-              <input class="form__field-input field-number" type="number" />
+              <input
+                min="0"
+                formControlName="shipped"
+                class="form__field-input field-number"
+                type="number"
+              />
+              <div
+                class="form__validation"
+                *ngIf="
+                  form.get('shipped')?.invalid && form.get('shipped')?.touched
+                "
+              >
+                <small>Поле "Отгружено, т" не может быть пустым</small>
+              </div>
             </div>
-            <button class="btn mt-xl">
+            <button type="button" class="btn mt-xl">
               <img src="/assets/img/delete.svg" alt="Удалить" />
             </button>
+          </div>
+        </fieldset>
+        <fieldset class="form__info">
+          <legend>Второй кран</legend>
+          <div class="mr-md">
+            <label class="form__header mt-md mb-sm">Грузовик</label>
+            <select name="" id="" class="form__select" formControlName="truck">
+              <option value="truck1">Грузовик №1</option>
+              <option value="truck2">Грузовик №2</option>
+            </select>
+          </div>
+          <div class="form__materials">
+            <div class="form__material mr-md">
+              <label for="" class="form__header mt-md mb-sm"
+                >Погружено, т</label
+              >
+              <input
+                min="0"
+                formControlName="loaded"
+                class="form__field-input field-number"
+                type="number"
+              />
+              <div
+                class="form__validation"
+                *ngIf="
+                  form.get('loaded')?.invalid && form.get('loaded')?.touched
+                "
+              >
+                <small *ngIf="form.get('loaded')?.errors?.required"
+                  >Поле не может быть пустым</small
+                >
+              </div>
+            </div>
+            <div class="form__material mr-md">
+              <label for="" class="form__header mt-md mb-sm"
+                >Отгружено, т</label
+              >
+              <input
+                min="0"
+                formControlName="shipped"
+                class="form__field-input field-number"
+                type="number"
+              />
+              <div
+                class="form__validation"
+                *ngIf="
+                  form.get('shipped')?.invalid && form.get('shipped')?.touched
+                "
+              >
+                <small>Поле "Отгружено, т" не может быть пустым</small>
+              </div>
+            </div>
           </div>
         </fieldset>
       </form>
@@ -74,10 +195,17 @@
         </div>
       </div>
       <div class="dialog__btns">
-        <button class="btn btn--secondary mr-sm" (click)="hide()">
+        <button type="button" class="btn btn--secondary mr-sm" (click)="hide()">
           Закрыть
         </button>
-        <button class="btn btn--primary">Сохранить</button>
+        <button
+          type="submit"
+          class="btn btn--primary"
+          (click)="submit()"
+          [disabled]="form.invalid"
+        >
+          Сохранить
+        </button>
       </div>
     </footer>
   </div>
