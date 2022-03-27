@@ -16,6 +16,7 @@ import { CraneType } from '../types/crane-type.enum';
 export class WorkingShiftModalComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   constructor() {}
+  isModalVisible: boolean = false;
 
   ngOnInit(): void {
     window.addEventListener('keydown', this.onKeyDown);
@@ -33,8 +34,6 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     window.removeEventListener('keydown', this.onKeyDown);
   }
 
-  isModalVisible: boolean = false;
-
   get craneType(): typeof CraneType {
     return CraneType;
   }
@@ -50,7 +49,6 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
   getTrucksForCrane(idx: number) {
     // По индексу крана получаем его массив грузовиков
     const crane = this.cranes.get(String(idx)) as FormGroup;
-    console.log('crane', crane);
     return (crane.get('trucks') as FormArray).controls || [];
   }
 
@@ -65,21 +63,34 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
   onChangeCrane() {
     const selectedCrane = this.form.value.crane;
     (this.form.get('cranes') as FormArray).clear();
-    this.addCraneFormGroup();
+    this.addNewCrane();
     if (selectedCrane === this.craneType.double) {
-      this.addCraneFormGroup();
+      this.addNewCrane();
     }
   }
 
-  addCraneFormGroup() {
+  onChangeTruck(craneIdx: number) {
+    const crane = this.cranes.get(String(craneIdx));
+    if (crane) {
+      const trucks = crane.get('trucks') as FormArray;
+      const lastTruck = trucks.get(String(trucks.length - 1));
+      if (lastTruck?.value.truck) {
+        trucks.push(this.addNewTruck());
+      }
+    }
+  }
+
+  addNewTruck() {
+    return new FormGroup({
+      truck: new FormControl('', [Validators.required]),
+      loaded: new FormControl(''),
+      shipped: new FormControl(''), // Отгружено тонн
+    });
+  }
+
+  addNewCrane() {
     const craneFormGroup = new FormGroup({
-      trucks: new FormArray([
-        new FormGroup({
-          truck: new FormControl('', [Validators.required]),
-          loaded: new FormControl(''),
-          shipped: new FormControl(''), // Отгружено тонн
-        }),
-      ]),
+      trucks: new FormArray([this.addNewTruck()]),
     });
     (this.form.get('cranes') as FormArray).push(craneFormGroup);
   }

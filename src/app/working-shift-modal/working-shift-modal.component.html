@@ -91,13 +91,17 @@
                 class="form__materials"
                 *ngFor="
                   let truck of getTrucksForCrane(craneIdx);
-                  let trukIdx = index
+                  let truckIdx = index
                 "
-                [formGroupName]="trukIdx"
+                [formGroupName]="truckIdx"
               >
                 <div class="mr-md">
                   <label class="form__header mt-md mb-sm">Грузовик</label>
-                  <select class="form__select" formControlName="truck">
+                  <select
+                    class="form__select"
+                    formControlName="truck"
+                    (change)="onChangeTruck(craneIdx)"
+                  >
                     <option value="truck1">Грузовик №1</option>
                     <option value="truck2">Грузовик №2</option>
                   </select>
