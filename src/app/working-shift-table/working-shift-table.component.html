@@ -1,17 +1,18 @@
 <div class="table">
-  <caption class="table__table-name">
-    Список смен
-  </caption>
+  <div class="table__table-name-wrap">
+    <caption class="table__table-name">
+      Список смен
+    </caption>
+    <button class="table__btn-add btn btn--primary" (click)="modal.show()">
+      <img src="assets/img/plus.svg" alt="" />
+    </button>
+  </div>
   <table class="table__data-table">
     <thead>
       <tr class="table__table-row">
-        <th class="table__table-header">ФИО</th>
-        <th class="table__table-header">Начало</th>
-        <th class="table__table-header">Окончание</th>
-        <th class="table__table-header">Тип крана</th>
-        <th class="table__table-header">Погружено тонн</th>
-        <th class="table__table-header">Отгружено тонн</th>
-        <th class="table__table-header"></th>
+        <th class="table__table-header" *ngFor="let column of columns">
+          {{ column }}
+        </th>
       </tr>
     </thead>
     <tbody>

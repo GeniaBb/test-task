@@ -9,6 +9,11 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  &__table-name-wrap {
+    display: flex;
+  }
 
   &__table-name {
     color: #343a40;
@@ -19,6 +24,19 @@
 
   &__btns {
     display: flex;
+  }
+
+  &__btn-add {
+    position: absolute;
+    right: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 38px;
+    border-radius: 50px;
+    padding: 0;
+    width: 40px;
+    height: 40px;
   }
 
   &__data-table {
