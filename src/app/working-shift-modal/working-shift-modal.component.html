@@ -147,7 +147,14 @@
                     <small>Поле "Отгружено, т" не может быть пустым</small>
                   </div>
                 </div>
-                <button type="button" class="btn mt-xl">
+                <button
+                  type="button"
+                  class="btn mt-xl"
+                  [ngStyle]="{
+                    visibility: isTruckHasValue(truck) ? 'visible' : 'hidden'
+                  }"
+                >
+                  >
                   <img src="/assets/img/delete.svg" alt="Удалить" />
                 </button>
               </div>

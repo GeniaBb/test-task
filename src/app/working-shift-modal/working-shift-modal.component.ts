@@ -95,6 +95,10 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     (this.form.get('cranes') as FormArray).push(craneFormGroup);
   }
 
+  isTruckHasValue(truck: any): boolean {
+    return Boolean(truck.value.truck);
+  }
+
   onKeyDown = (event: KeyboardEvent): void => {
     if (event.key === 'Escape') {
       this.hide();
