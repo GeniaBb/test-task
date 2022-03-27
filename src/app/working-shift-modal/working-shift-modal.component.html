@@ -153,6 +153,7 @@
                   [ngStyle]="{
                     visibility: isTruckHasValue(truck) ? 'visible' : 'hidden'
                   }"
+                  (click)="removeTruck(craneIdx, truckIdx)"
                 >
                   >
                   <img src="/assets/img/delete.svg" alt="Удалить" />

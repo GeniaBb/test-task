@@ -109,4 +109,12 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     this.form.markAsTouched();
     console.log(this.form);
   }
+
+  removeTruck(craneIdx: number, truckIdx: number) {
+    const crane = this.cranes.get(String(craneIdx));
+    if (crane) {
+      const trucks = crane.get('trucks') as FormArray;
+      trucks.removeAt(truckIdx);
+    }
+  }
 }
