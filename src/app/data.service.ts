@@ -18,6 +18,17 @@ export class DataService {
       craneType: CraneType.single,
       loaded: 10,
       shipped: 2,
+      cranes: [
+        {
+          trucks: [
+            {
+              truck: 'g1',
+              loaded: 10,
+              shipped: 2,
+            },
+          ],
+        },
+      ],
     },
     {
       id: 2,
@@ -27,6 +38,26 @@ export class DataService {
       craneType: CraneType.double,
       loaded: 12,
       shipped: 1,
+      cranes: [
+        {
+          trucks: [
+            {
+              truck: 'g1',
+              loaded: 6,
+              shipped: 0,
+            },
+          ],
+        },
+        {
+          trucks: [
+            {
+              truck: 'g2',
+              loaded: 6,
+              shipped: 1,
+            },
+          ],
+        },
+      ],
     },
   ];
 
@@ -37,5 +68,9 @@ export class DataService {
 
   getShifts(): Observable<Shift[]> {
     return of(this.shifts);
+  }
+
+  createShift(shift: Shift): void {
+    this.shifts.push(shift);
   }
 }

@@ -16,7 +16,7 @@
             name="crane"
             class="form__select"
             (change)="onChangeCrane()"
-            formControlName="crane"
+            formControlName="craneType"
           >
             <option [value]="craneType.single">Одинарный</option>
             <option [value]="craneType.double">Двойной</option>
@@ -24,22 +24,25 @@
 
           <div
             class="form__validation"
-            *ngIf="form.get('crane')?.invalid && form.get('crane')?.touched"
+            *ngIf="
+              form.get('craneType')?.invalid && form.get('craneType')?.touched
+            "
           ></div>
 
           <label class="form__header mt-md mb-sm">ФИО ответственного</label
           ><input
-            formControlName="employee"
+            formControlName="responsible"
             class="form__field-input"
             type="text"
           />
           <div
             class="form__validation"
             *ngIf="
-              form.get('employee')?.invalid && form.get('employee')?.touched
+              form.get('responsible')?.invalid &&
+              form.get('responsible')?.touched
             "
           >
-            <small *ngIf="form.get('employee')?.errors?.required"
+            <small *ngIf="form.get('responsible')?.errors?.required"
               >Поле "ФИО ответственного" не может быть пустым</small
             >
           </div>
@@ -48,17 +51,15 @@
           <div>
             <label class="form__header mt-md mb-sm" for="">Дата начала</label>
             <input
-              formControlName="dateStart"
+              formControlName="start"
               class="form__field-input"
               type="datetime-local"
             />
             <div
               class="form__validation"
-              *ngIf="
-                form.get('dateStart')?.invalid && form.get('dateStart')?.touched
-              "
+              *ngIf="form.get('start')?.invalid && form.get('start')?.touched"
             >
-              <small *ngIf="form.get('dateStart')?.errors?.required"
+              <small *ngIf="form.get('start')?.errors?.required"
                 >Дата обязательна к заполнению</small
               >
             </div>
@@ -68,17 +69,15 @@
               >Дата окончания</label
             >
             <input
-              formControlName="dateEnd"
+              formControlName="end"
               class="form__field-input"
               type="datetime-local"
             />
             <div
               class="form__validation"
-              *ngIf="
-                form.get('dateEnd')?.invalid && form.get('dateEnd')?.touched
-              "
+              *ngIf="form.get('end')?.invalid && form.get('end')?.touched"
             >
-              <small *ngIf="form.get('dateEnd')?.errors?.required"
+              <small *ngIf="form.get('end')?.errors?.required"
                 >Дата обязательна к заполнению</small
               >
             </div>
@@ -164,11 +163,11 @@
       <div class="dialog__total">
         <div class="mb-sm">
           <span class="mr-sm">Всего погружено</span>
-          <span>10т</span>
+          <span>{{ loaded }} т</span>
         </div>
         <div>
           <span class="mr-sm">Всего отгружено</span>
-          <span>5 т</span>
+          <span>{{ shipped }} т</span>
         </div>
       </div>
       <div class="dialog__btns">

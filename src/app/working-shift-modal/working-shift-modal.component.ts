@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import {
   AbstractControl,
   FormArray,
@@ -6,7 +7,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { DataService } from '../data.service';
 import { CraneType } from '../types/crane-type.enum';
+import { Shift } from '../types/shift.interface';
 
 @Component({
   selector: 'app-working-shift-modal',
@@ -15,17 +18,16 @@ import { CraneType } from '../types/crane-type.enum';
 })
 export class WorkingShiftModalComponent implements OnInit, OnDestroy {
   form!: FormGroup;
-  constructor() {}
+  constructor(private readonly dataService: DataService) {}
   isModalVisible: boolean = false;
 
   ngOnInit(): void {
     window.addEventListener('keydown', this.onKeyDown);
     this.form = new FormGroup({
-      employee: new FormControl('', [Validators.required]), //ФИО ответственного
-      crane: new FormControl('', [Validators.required]),
-      truck: new FormControl(''),
-      dateStart: new FormControl('', [Validators.required]),
-      dateEnd: new FormControl('', [Validators.required]),
+      responsible: new FormControl('', [Validators.required]), //ФИО ответственного
+      craneType: new FormControl('', [Validators.required]),
+      start: new FormControl('', [Validators.required]),
+      end: new FormControl('', [Validators.required]),
       cranes: new FormArray([]),
     });
   }
@@ -47,7 +49,35 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
   }
 
   get isSingleCrane(): boolean {
-    return this.form.get('crane')?.value === CraneType.single;
+    return this.form.get('craneType')?.value === CraneType.single;
+  }
+
+  get loaded(): number {
+    let loaded = 0;
+    const form = this.form.value as Shift;
+    if (form.cranes) {
+      form.cranes.forEach((crane) => {
+        crane.trucks.forEach((truck) => {
+          loaded += +truck.loaded;
+        });
+      });
+    }
+
+    return loaded;
+  }
+
+  get shipped(): number {
+    let shipped = 0;
+    const form = this.form.value as Shift;
+    if (form.cranes) {
+      form.cranes.forEach((crane) => {
+        crane.trucks.forEach((truck) => {
+          shipped += +truck.shipped;
+        });
+      });
+    }
+
+    return shipped;
   }
 
   getTrucksForCrane(idx: number) {
@@ -65,7 +95,7 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
   }
 
   onChangeCrane() {
-    const selectedCrane = this.form.value.crane;
+    const selectedCrane = this.form.value.craneType;
     (this.form.get('cranes') as FormArray).clear();
     this.addNewCrane();
     if (selectedCrane === this.craneType.double) {
@@ -110,8 +140,16 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
   };
 
   submit() {
-    this.form.markAsTouched();
-    console.log(this.form);
+    if (this.form.valid) {
+      const data: Shift = this.form.value;
+      data.loaded = this.loaded;
+      data.shipped = this.shipped;
+      this.dataService.createShift(this.form.value);
+    }
+
+    this.hide();
+
+    console.log(this.form.value);
   }
 
   removeTruck(craneIdx: number, truckIdx: number) {

@@ -8,4 +8,15 @@ export interface Shift {
   craneType: CraneType;
   loaded: number;
   shipped: number;
+  cranes: Crane[];
+}
+
+interface Crane {
+  trucks: Truck[];
+}
+
+interface Truck {
+  truck: string;
+  loaded: number;
+  shipped: number;
 }
