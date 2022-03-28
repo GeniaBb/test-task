@@ -11,12 +11,12 @@ export interface Shift {
   cranes: Crane[];
 }
 
-interface Crane {
+export interface Crane {
   trucks: Truck[];
 }
 
-interface Truck {
+export interface Truck {
   truck: string;
-  loaded: number;
-  shipped: number;
+  loaded?: number;
+  shipped?: number;
 }

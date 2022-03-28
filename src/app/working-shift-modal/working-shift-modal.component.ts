@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { DataService } from '../data.service';
 import { CraneType } from '../types/crane-type.enum';
-import { Shift } from '../types/shift.interface';
+import { Crane, Shift, Truck } from '../types/shift.interface';
 
 @Component({
   selector: 'app-working-shift-modal',
@@ -20,9 +20,15 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   constructor(private readonly dataService: DataService) {}
   isModalVisible: boolean = false;
+  currentId: number = -1;
+  isEdit: boolean = false;
 
   ngOnInit(): void {
     window.addEventListener('keydown', this.onKeyDown);
+    this.resetForm();
+  }
+
+  resetForm() {
     this.form = new FormGroup({
       responsible: new FormControl('', [Validators.required]), //ФИО ответственного
       craneType: new FormControl('', [Validators.required]),
@@ -58,7 +64,7 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     if (form.cranes) {
       form.cranes.forEach((crane) => {
         crane.trucks.forEach((truck) => {
-          loaded += +truck.loaded;
+          loaded += +(truck.loaded || 0);
         });
       });
     }
@@ -72,7 +78,7 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     if (form.cranes) {
       form.cranes.forEach((crane) => {
         crane.trucks.forEach((truck) => {
-          shipped += +truck.shipped;
+          shipped += +(truck.shipped || 0);
         });
       });
     }
@@ -86,12 +92,32 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     return (crane.get('trucks') as FormArray).controls || [];
   }
 
-  show(): void {
+  show(shift?: Shift): void {
+    if (shift) {
+      this.isEdit = true;
+      this.currentId = shift.id;
+      console.log(shift);
+
+      this.form = new FormGroup({
+        responsible: new FormControl(shift.responsible, [Validators.required]), //ФИО ответственного
+        craneType: new FormControl(shift.craneType, [Validators.required]),
+        start: new FormControl(shift.start, [Validators.required]),
+        end: new FormControl(shift.end, [Validators.required]),
+        cranes: new FormArray([]),
+      });
+      shift.cranes.forEach((crane) => {
+        this.addNewCrane(crane);
+      });
+    } else {
+      this.isEdit = false;
+    }
     this.isModalVisible = true;
   }
 
   hide(): void {
     this.isModalVisible = false;
+    this.currentId = -1;
+    this.resetForm();
   }
 
   onChangeCrane() {
@@ -114,17 +140,24 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  addNewTruck() {
+  addNewTruck(truck?: Truck) {
     return new FormGroup({
-      truck: new FormControl(''),
-      loaded: new FormControl(''),
-      shipped: new FormControl(''), // Отгружено тонн
+      truck: new FormControl(truck?.truck || ''),
+      loaded: new FormControl(truck?.loaded || ''),
+      shipped: new FormControl(truck?.shipped || ''), // Отгружено тонн
     });
   }
 
-  addNewCrane() {
+  addNewCrane(crane?: Crane) {
     const craneFormGroup = new FormGroup({
-      trucks: new FormArray([this.addNewTruck()]),
+      trucks: new FormArray(
+        crane
+          ? [
+              ...crane.trucks.map((truck) => this.addNewTruck(truck)),
+              this.addNewTruck(),
+            ]
+          : [this.addNewTruck()]
+      ),
     });
     (this.form.get('cranes') as FormArray).push(craneFormGroup);
   }
@@ -148,8 +181,6 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     }
 
     this.hide();
-
-    console.log(this.form.value);
   }
 
   removeTruck(craneIdx: number, truckIdx: number) {

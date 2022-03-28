@@ -12,19 +12,18 @@ export class DataService {
   shifts: Shift[] = [
     {
       id: 1,
-      responsible: 'Иванов И.И.',
-      start: '2022-03-26T12:50:37Z',
-      end: '2022-03-27T00:50:37Z',
+      responsible: 'Шаньга В.П.',
+      start: '2022-03-26T12:50',
+      end: '2022-03-27T00:50',
       craneType: CraneType.single,
       loaded: 10,
-      shipped: 2,
+      shipped: 0,
       cranes: [
         {
           trucks: [
             {
-              truck: 'g1',
+              truck: 'truck1',
               loaded: 10,
-              shipped: 2,
             },
           ],
         },
@@ -33,8 +32,8 @@ export class DataService {
     {
       id: 2,
       responsible: 'Петров И.И.',
-      start: '2022-03-27T00:50:37Z',
-      end: '2022-03-27T12:50:37Z',
+      start: '2022-03-27T00:50',
+      end: '2022-03-27T12:50',
       craneType: CraneType.double,
       loaded: 12,
       shipped: 1,
@@ -42,17 +41,15 @@ export class DataService {
         {
           trucks: [
             {
-              truck: 'g1',
-              loaded: 6,
-              shipped: 0,
+              truck: 'truck1',
+              loaded: 12,
             },
           ],
         },
         {
           trucks: [
             {
-              truck: 'g2',
-              loaded: 6,
+              truck: 'truck2',
               shipped: 1,
             },
           ],

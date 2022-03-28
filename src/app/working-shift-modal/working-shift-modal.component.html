@@ -17,6 +17,9 @@
             class="form__select"
             (change)="onChangeCrane()"
             formControlName="craneType"
+            [ngClass]="{
+              disabled: isEdit
+            }"
           >
             <option [value]="craneType.single">Одинарный</option>
             <option [value]="craneType.double">Двойной</option>
