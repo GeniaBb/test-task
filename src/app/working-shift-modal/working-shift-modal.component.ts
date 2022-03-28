@@ -46,6 +46,10 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
     return this.cranes.controls || [];
   }
 
+  get isSingleCrane(): boolean {
+    return this.form.get('crane')?.value === CraneType.single;
+  }
+
   getTrucksForCrane(idx: number) {
     // По индексу крана получаем его массив грузовиков
     const crane = this.cranes.get(String(idx)) as FormGroup;

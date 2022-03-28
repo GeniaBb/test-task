@@ -85,7 +85,7 @@
             *ngFor="let crane of cranesControls; let craneIdx = index"
             [formGroupName]="craneIdx"
           >
-            <legend>Кран {{ craneIdx }}</legend>
+            <legend>Кран {{ isSingleCrane ? "" : craneIdx + 1 }}</legend>
             <div formArrayName="trucks">
               <div
                 class="form__materials"
