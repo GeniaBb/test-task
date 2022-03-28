@@ -68,6 +68,7 @@ export class DataService {
   }
 
   createShift(shift: Shift): void {
+    shift.id = this.shifts[this.shifts.length - 1].id + 1;
     this.shifts.push(shift);
   }
 }
