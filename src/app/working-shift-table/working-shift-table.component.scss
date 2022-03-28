@@ -1,3 +1,15 @@
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
+
+  @media (max-width: 1200px) {
+    overflow: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
 .table {
   background: var(--surface-card);
   padding: 2rem;
@@ -64,5 +76,9 @@
     border-width: 0 0 1px 0;
     padding: 1rem 1rem;
     color: #495057;
+  }
+
+  @media (max-width: 1200px) {
+    min-width: 1200px;
   }
 }

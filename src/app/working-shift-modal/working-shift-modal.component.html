@@ -149,14 +149,24 @@
                 </div>
                 <button
                   type="button"
-                  class="btn mt-xl"
+                  class="btn mt-xl remove"
                   [ngStyle]="{
                     visibility: isTruckHasValue(truck) ? 'visible' : 'hidden'
                   }"
                   (click)="removeTruck(craneIdx, truckIdx)"
                 >
-                  >
                   <img src="/assets/img/delete.svg" alt="Удалить" />
+                </button>
+
+                <button
+                  type="button"
+                  class="btn mt-sm btn--danger"
+                  [ngStyle]="{
+                    visibility: isTruckHasValue(truck) ? 'visible' : 'hidden'
+                  }"
+                  (click)="removeTruck(craneIdx, truckIdx)"
+                >
+                  Удалить
                 </button>
               </div>
             </div>
