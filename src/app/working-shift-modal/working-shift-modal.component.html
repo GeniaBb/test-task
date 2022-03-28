@@ -119,6 +119,9 @@
                     formControlName="loaded"
                     class="form__field-input field-number"
                     type="number"
+                    [ngClass]="{
+                      disabled: getLoadedInputDisableState(craneIdx, truckIdx)
+                    }"
                   />
                 </div>
                 <div class="form__material mr-md">
@@ -130,6 +133,9 @@
                     formControlName="shipped"
                     class="form__field-input field-number"
                     type="number"
+                    [ngClass]="{
+                      disabled: getShipppedInputDisableState(craneIdx, truckIdx)
+                    }"
                   />
                 </div>
                 <button

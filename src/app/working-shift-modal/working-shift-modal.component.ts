@@ -159,4 +159,45 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
       trucks.removeAt(truckIdx);
     }
   }
+
+  getIsTruckSelected(craneIdx: number, truckIdx: number) {
+    const crane = this.cranes.get(String(craneIdx));
+    let isTruckSelected = false;
+    if (crane) {
+      const trucks = crane.get('trucks') as FormArray;
+      const truck = trucks.get(String(truckIdx));
+
+      isTruckSelected = Boolean((truck as FormGroup).value.truck);
+    }
+
+    return isTruckSelected;
+  }
+
+  getLoadedInputDisableState(craneIdx: number, truckIdx: number) {
+    const crane = this.cranes.get(String(craneIdx));
+    let hasShipped = false;
+
+    if (crane) {
+      const trucks = crane.get('trucks') as FormArray;
+      const truck = trucks.get(String(truckIdx));
+
+      hasShipped = Boolean((truck as FormGroup).value.shipped);
+    }
+
+    return hasShipped || !this.getIsTruckSelected(craneIdx, truckIdx);
+  }
+
+  getShipppedInputDisableState(craneIdx: number, truckIdx: number) {
+    const crane = this.cranes.get(String(craneIdx));
+    let hasLoaded = false;
+
+    if (crane) {
+      const trucks = crane.get('trucks') as FormArray;
+      const truck = trucks.get(String(truckIdx));
+
+      hasLoaded = Boolean((truck as FormGroup).value.loaded);
+    }
+
+    return hasLoaded || !this.getIsTruckSelected(craneIdx, truckIdx);
+  }
 }

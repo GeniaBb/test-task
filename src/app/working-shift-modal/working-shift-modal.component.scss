@@ -134,6 +134,12 @@
     color: #212529;
     background-color: #fff;
 
+    &.disabled.disabled {
+      background: #ced4da;
+      border-color: #a4a9ad;
+      pointer-events: none;
+    }
+
     &.ng-invalid.ng-touched {
       border: 1px solid rgb(189, 11, 11);
     }
