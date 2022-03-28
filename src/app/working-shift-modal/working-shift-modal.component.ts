@@ -86,7 +86,7 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
 
   addNewTruck() {
     return new FormGroup({
-      truck: new FormControl('', [Validators.required]),
+      truck: new FormControl(''),
       loaded: new FormControl(''),
       shipped: new FormControl(''), // Отгружено тонн
     });

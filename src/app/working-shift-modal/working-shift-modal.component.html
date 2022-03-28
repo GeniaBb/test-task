@@ -22,6 +22,11 @@
             <option [value]="craneType.double">Двойной</option>
           </select>
 
+          <div
+            class="form__validation"
+            *ngIf="form.get('crane')?.invalid && form.get('crane')?.touched"
+          ></div>
+
           <label class="form__header mt-md mb-sm">ФИО ответственного</label
           ><input
             formControlName="employee"
@@ -45,7 +50,7 @@
             <input
               formControlName="dateStart"
               class="form__field-input"
-              type="date"
+              type="datetime-local"
             />
             <div
               class="form__validation"
@@ -65,7 +70,7 @@
             <input
               formControlName="dateEnd"
               class="form__field-input"
-              type="date"
+              type="datetime-local"
             />
             <div
               class="form__validation"
@@ -116,16 +121,6 @@
                     class="form__field-input field-number"
                     type="number"
                   />
-                  <div
-                    class="form__validation"
-                    *ngIf="
-                      form.get('loaded')?.invalid && form.get('loaded')?.touched
-                    "
-                  >
-                    <small *ngIf="form.get('loaded')?.errors?.required"
-                      >Поле не может быть пустым</small
-                    >
-                  </div>
                 </div>
                 <div class="form__material mr-md">
                   <label for="" class="form__header mt-md mb-sm"
@@ -137,15 +132,6 @@
                     class="form__field-input field-number"
                     type="number"
                   />
-                  <div
-                    class="form__validation"
-                    *ngIf="
-                      form.get('shipped')?.invalid &&
-                      form.get('shipped')?.touched
-                    "
-                  >
-                    <small>Поле "Отгружено, т" не может быть пустым</small>
-                  </div>
                 </div>
                 <button
                   type="button"
