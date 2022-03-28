@@ -48,12 +48,12 @@ body {
 
     &:active {
       color: #fff;
-      background-color: #b02a37;
-      border-color: #a52834;
+      background-color: #565e64;
+      border-color: #51585e;
     }
 
     &:focus {
-      box-shadow: 0 0 0 0.25rem rgb(225 83 97 / 50%);
+      box-shadow: 0 0 0 0.25rem rgb(130 138 145 / 50%);
     }
   }
 
@@ -64,12 +64,12 @@ body {
     display: none;
 
     &:active {
-      background: #334155;
-      border-color: #334155;
+      background-color: #b02a37;
+      border-color: #a52834;
     }
 
     &:focus {
-      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #b0b9c6, 0 1px 2px 0 black;
+      box-shadow: 0 0 0 0.25rem rgb(225 83 97 / 50%);
     }
 
     @media (max-width: 644px) {
