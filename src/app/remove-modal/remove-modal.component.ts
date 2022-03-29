@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { Shift } from '../types/shift.interface';
 
 @Component({
   selector: 'app-remove-modal',
@@ -7,14 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RemoveModalComponent implements OnInit {
   isModalVisible: boolean = false;
-  constructor() {}
+  constructor(private readonly dataService: DataService) {}
+  shiftForRemove: Shift | null = null;
 
   ngOnInit(): void {}
 
-  show(): void {
+  show(shift: Shift): void {
     this.isModalVisible = true;
+    this.shiftForRemove = shift;
   }
   hide(): void {
     this.isModalVisible = false;
+    this.shiftForRemove = null;
+  }
+
+  removeShift() {
+    if (this.shiftForRemove) {
+      this.dataService.removeShift(this.shiftForRemove);
+    }
+    this.hide();
   }
 }
