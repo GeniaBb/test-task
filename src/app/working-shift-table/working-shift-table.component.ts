@@ -8,9 +8,15 @@ import { Shift } from '../types/shift.interface';
   templateUrl: './working-shift-table.component.html',
   styleUrls: ['./working-shift-table.component.scss'],
 })
+/**
+ * Компонент таблицы смен
+ */
 export class WorkingShiftTableComponent implements OnInit {
   constructor(private readonly dataService: DataService) {}
 
+  /**
+   * Заголовки колонок таблицы
+   */
   columns: string[] = [
     'ФИО',
     'Начало',
@@ -21,6 +27,10 @@ export class WorkingShiftTableComponent implements OnInit {
     '',
   ];
 
+  /**
+   * Получение данных для таблицы
+   * @returns данные для таблицы
+   */
   getData(): Observable<Shift[]> {
     return this.dataService.getShifts();
   }

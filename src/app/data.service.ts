@@ -6,9 +6,14 @@ import { Shift } from './types/shift.interface';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Сервис для работы с данными
+ */
 export class DataService {
   constructor() {}
-
+  /**
+   * Данные смен (имитация базы данных)
+   */
   shifts: Shift[] = [
     {
       id: 1,
@@ -58,20 +63,33 @@ export class DataService {
     },
   ];
 
+  /**
+   * Удаление смены
+   */
   removeShift(removableShift: Shift) {
     const result = this.shifts.filter((item) => item.id !== removableShift.id);
     this.shifts = result;
   }
 
+  /**
+   * Получение данных смен
+   * @returns данные смен
+   */
   getShifts(): Observable<Shift[]> {
     return of(this.shifts);
   }
 
+  /**
+   * Добавление данных о новой смене в таблицу
+   */
   createShift(shift: Shift): void {
     shift.id = this.shifts[this.shifts.length - 1].id + 1;
     this.shifts.push(shift);
   }
 
+  /**
+   * Сохранение отредактированных данных в таблице по смене
+   */
   editShift(shift: Shift): void {
     const i = this.shifts.findIndex((el: Shift) => el.id === shift.id);
     this.shifts[i] = shift;

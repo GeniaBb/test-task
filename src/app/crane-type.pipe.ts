@@ -4,6 +4,9 @@ import { CraneType } from './types/crane-type.enum';
 @Pipe({
   name: 'craneType',
 })
+/**
+ * Форматирование типа крана
+ */
 export class CraneTypePipe implements PipeTransform {
   transform(value: CraneType): string {
     switch (value) {

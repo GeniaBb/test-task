@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from '../data.service';
 import { Shift } from '../types/shift.interface';
 
@@ -7,22 +7,40 @@ import { Shift } from '../types/shift.interface';
   templateUrl: './remove-modal.component.html',
   styleUrls: ['./remove-modal.component.scss'],
 })
-export class RemoveModalComponent implements OnInit {
+/**
+ * Модал удаления смены
+ */
+export class RemoveModalComponent {
+  /**
+   * Виден ли модал
+   */
   isModalVisible: boolean = false;
-  constructor(private readonly dataService: DataService) {}
+
+  /**
+   * Удаляемая смена
+   */
   shiftForRemove: Shift | null = null;
+  constructor(private readonly dataService: DataService) {}
 
-  ngOnInit(): void {}
-
+  /**
+   * Показ модального окна
+   */
   show(shift: Shift): void {
     this.isModalVisible = true;
     this.shiftForRemove = shift;
   }
+
+  /**
+   * Скрытие модального окна
+   */
   hide(): void {
     this.isModalVisible = false;
     this.shiftForRemove = null;
   }
 
+  /**
+   * Удаление смены из таблицы
+   */
   removeShift() {
     if (this.shiftForRemove) {
       this.dataService.removeShift(this.shiftForRemove);
