@@ -7,6 +7,7 @@ import { WorkingShiftModalComponent } from './working-shift-modal/working-shift-
 import { LocalDatePipe } from './local-date.pipe';
 import { CraneTypePipe } from './crane-type.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RemoveModalComponent } from './remove-modal/remove-modal.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     WorkingShiftModalComponent,
     LocalDatePipe,
     CraneTypePipe,
+    RemoveModalComponent,
   ],
   imports: [BrowserModule, ReactiveFormsModule],
   providers: [],

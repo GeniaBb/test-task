@@ -1,0 +1,19 @@
+<div class="dialog-mask" [ngClass]="{ visible: isModalVisible }">
+  <div class="dialog">
+    <header class="dialog__header">
+      <caption class="dialog__title">
+        Удаление смены
+      </caption>
+      <button type="button" class="btn btn--icon" (click)="hide()">
+        <img src="/assets/img/clear.svg" alt="Закрыть модальное окно" />
+      </button>
+    </header>
+    <div class="dialog__content">Вы уверены что хотите удалить смену?</div>
+    <footer class="dialog__footer">
+      <button type="button" class="btn btn--secondary mr-sm" (click)="hide()">
+        Отмена
+      </button>
+      <button type="submit" class="btn btn--danger">Удалить</button>
+    </footer>
+  </div>
+</div>

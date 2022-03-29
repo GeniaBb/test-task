@@ -225,3 +225,15 @@
     display: none;
   }
 }
+
+.dn.btn.btn--danger {
+  @media (max-width: 644px) {
+    display: block;
+  }
+}
+
+.mr-md {
+  @media (max-width: 644px) {
+    margin-right: 0;
+  }
+}

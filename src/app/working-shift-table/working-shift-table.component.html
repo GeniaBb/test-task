@@ -29,7 +29,7 @@
               <button class="btn btn--icon mr-sm" (click)="modal.show(shift)">
                 <img src="/assets/img/editor.svg" alt="Редактировать" />
               </button>
-              <button class="btn btn--icon" (click)="removeShift(shift)">
+              <button class="btn btn--icon" (click)="remove.show()">
                 <img src="/assets/img/delete.svg" alt="Удалить" />
               </button>
             </div>
@@ -41,3 +41,4 @@
 </div>
 
 <app-working-shift-modal #modal></app-working-shift-modal>
+<app-remove-modal #remove></app-remove-modal>

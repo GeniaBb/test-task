@@ -12,7 +12,7 @@ export class DataService {
   shifts: Shift[] = [
     {
       id: 1,
-      responsible: 'Шаньга В.П.',
+      responsible: 'Иванов И.И.',
       start: '2022-03-26T12:50',
       end: '2022-03-27T00:50',
       craneType: CraneType.single,
@@ -31,7 +31,7 @@ export class DataService {
     },
     {
       id: 2,
-      responsible: 'Петров И.И.',
+      responsible: 'Петров П.П.',
       start: '2022-03-27T00:50',
       end: '2022-03-27T12:50',
       craneType: CraneType.double,
