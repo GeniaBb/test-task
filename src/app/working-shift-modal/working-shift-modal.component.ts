@@ -153,7 +153,9 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
       trucks: new FormArray(
         crane
           ? [
-              ...crane.trucks.map((truck) => this.addNewTruck(truck)),
+              ...crane.trucks
+                .filter((truck) => truck.truck)
+                .map((truck) => this.addNewTruck(truck)),
               this.addNewTruck(),
             ]
           : [this.addNewTruck()]
