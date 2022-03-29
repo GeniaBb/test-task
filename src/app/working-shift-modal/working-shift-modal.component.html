@@ -2,7 +2,10 @@
   <div class="dialog">
     <header class="dialog__header">
       <caption class="dialog__title">
-        Добавление смены
+        {{
+          isEdit ? "Редактирование" : "Добавление"
+        }}
+        смены
       </caption>
       <button type="button" class="btn btn--icon" (click)="hide()">
         <img src="/assets/img/clear.svg" alt="Закрыть модальное окно" />
