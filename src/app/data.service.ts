@@ -71,4 +71,9 @@ export class DataService {
     shift.id = this.shifts[this.shifts.length - 1].id + 1;
     this.shifts.push(shift);
   }
+
+  editShift(shift: Shift): void {
+    const i = this.shifts.findIndex((el: Shift) => el.id === shift.id);
+    this.shifts[i] = shift;
+  }
 }

@@ -177,7 +177,12 @@ export class WorkingShiftModalComponent implements OnInit, OnDestroy {
       const data: Shift = this.form.value;
       data.loaded = this.loaded;
       data.shipped = this.shipped;
-      this.dataService.createShift(this.form.value);
+      if (this.isEdit) {
+        data.id = this.currentId;
+        this.dataService.editShift(data);
+      } else {
+        this.dataService.createShift(data);
+      }
     }
 
     this.hide();
